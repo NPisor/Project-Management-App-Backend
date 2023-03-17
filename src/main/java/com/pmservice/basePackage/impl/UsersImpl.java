@@ -1,6 +1,13 @@
 package com.pmservice.basePackage.impl;
 
+import java.sql.Date;
+import java.sql.Timestamp;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.util.Calendar;
 import java.util.Collection;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -24,7 +31,10 @@ public class UsersImpl implements UserService {
     }
 
     @Override
-    public Users findById(Long id) {
+    public Optional<Users> findById(Long id) throws Exception {
+        if(usersRepo.findById(id).isEmpty()){
+            throw new Exception("No user found with given ID");
+        }
         return usersRepo.findById(id);
     }
 
@@ -34,21 +44,29 @@ public class UsersImpl implements UserService {
     }
 
     @Override
-    public void createNewUser(CreateUserRequest request) {
-        
+    public void createNewUser(CreateUserRequest request) throws Exception {
+        if(usersRepo.findById(request.getId()).isPresent()){
+            throw new Exception("User already already exists in database.");
+        }       
         Users newUser = new Users();
         newUser.setId(request.getId());
         newUser.setFName(request.getFirstName());
         newUser.setLName(request.getLastName());
         newUser.setClient(request.getClient());
         newUser.setRole(request.getRole());
+        newUser.setDeviceId(request.getDeviceId());
+        newUser.setCreatedOn(Date.from(Instant.now()));
+        newUser.setLastModified(Date.from(Instant.now()));
         newUser = usersRepo.save(newUser);
     }
 
     @Override
     public void deleteUser(UserDeleteRequest request) throws Exception {
         if(request.getCheck()){
-            Users userToDelete = usersRepo.findById(request.getUserId());
+            if(!usersRepo.findById(request.getUserId()).isPresent()){
+                throw new Exception("No user exists to be deleted with given ID.");
+            }
+            Users userToDelete = usersRepo.findById(request.getUserId()).get();
             userToDelete = usersRepo.delete(userToDelete);
         }
         else{
@@ -57,13 +75,22 @@ public class UsersImpl implements UserService {
     }
 
     @Override
-    public void editUser(UserEditRequest request) {
-        Users userToEdit = usersRepo.findById(request.getUserId());
+    public void editUser(UserEditRequest request) throws Exception {
+        if(!usersRepo.findById(request.getId()).isPresent()){
+            throw new Exception("No user exists to edit with given ID.");
+        }
+        Users userToEdit = usersRepo.findById(request.getId()).get();
         userToEdit.setFName(request.getFirstName());
         userToEdit.setLName(request.getLastName());
-        userToEdit.setClient(request.getClientId());
-        userToEdit.setRole(request.getRoleId());
+        userToEdit.setClient(request.getClient());
+        userToEdit.setRole(request.getRole());
+        userToEdit.setLastModified(Date.from(Instant.now()));
         usersRepo.save(userToEdit);
+    }
+
+    @Override
+    public Collection<Users> findUsersByClient(Long clientId) {
+        return usersRepo.findAllByClient(clientId);
     }
     
 }

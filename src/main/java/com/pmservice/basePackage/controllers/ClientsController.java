@@ -5,7 +5,6 @@ import java.util.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -28,8 +27,8 @@ public class ClientsController {
         return clientsService.findAllClients();
     }
 
-    @GetMapping("/client/id/{id}")
-    public Client getClientById(@PathVariable Long id) {
+    @GetMapping("/client/id")
+    public Client getClientById(Long id) {
         return clientsService.findClientById(id);
     }
 
@@ -49,8 +48,8 @@ public class ClientsController {
         return response;
     }
 
-    @PutMapping("/client/edit/{clientId}")
-    public MappingResponse editClient(@PathVariable Long clientID, @RequestBody String newClientName) {
+    @PutMapping("/client/edit")
+    public MappingResponse editClient(Long clientID, @RequestBody String newClientName) {
         clientsService.editClient(clientID, newClientName);
         MappingResponse response = new MappingResponse();
         response.setResponseMessage("Client: " + clientID + " has been renamed to " + newClientName);

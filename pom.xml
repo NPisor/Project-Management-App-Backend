@@ -2,6 +2,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
+
     <groupId>com.pmservice</groupId>
     <artifactId>pm-app-service</artifactId>
     <version>1.0</version>
@@ -9,19 +10,12 @@
 
     <name>Backend service for PM App</name>
 
+ 
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>3.0.4</version>
-    </parent>
-
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <start-class>com.pmservice.App</start-class>
-        <java.version>17</java.version>
-        <lombok.version>1.18.22</lombok.version>
-    </properties>
-
+    </parent>         
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -49,6 +43,21 @@
             <version>${lombok.version}</version>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+      <groupId>org.springframework.cloud</groupId>
+      <artifactId>spring-cloud-gcp-starter</artifactId>
+      <version>1.0.0.RELEASE</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.cloud</groupId>
+      <artifactId>spring-cloud-gcp-starter-sql-postgresql</artifactId>
+      <version>1.0.0.RELEASE</version>
+    </dependency>
+    <dependency>
+    <groupId>com.google.cloud.sql</groupId>
+    <artifactId>postgres-socket-factory</artifactId>
+    <version>1.11.0</version>
+</dependency>
     </dependencies>
     <build>
         <plugins>
@@ -56,6 +65,11 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
+            <plugin>
+          <groupId>com.google.cloud.tools</groupId>
+          <artifactId>appengine-maven-plugin</artifactId>
+          <version>1.3.2</version>
+        </plugin>
         </plugins>
     </build>
 

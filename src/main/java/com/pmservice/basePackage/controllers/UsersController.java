@@ -5,7 +5,6 @@ import java.util.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -29,18 +28,23 @@ public class UsersController {
         return userService.getAllUsers();
     }
 
-    @GetMapping("/users/id/{id}")
-    public Users getUserById(@PathVariable Long id) {
-        return userService.findById(id);
+    @GetMapping("/users/id")
+    public Users getUserById(Long id) throws Exception {
+        return userService.findById(id).get();
     }
 
-    @GetMapping("/users/role/{roleId}")
-    public Collection<Users> getUsersByRole(@PathVariable Long roleId) {
+    @GetMapping("/users/role")
+    public Collection<Users> getUsersByRole(Long roleId) {
         return userService.findUsersByRole(roleId);
     }
 
+    @GetMapping("/users/client")
+    public Collection<Users> getUsersByClient(Long clientId) {
+        return userService.findUsersByClient(clientId);
+    }
+
     @PostMapping("/users/new")
-    public MappingResponse createNewUser(@RequestBody CreateUserRequest request) {
+    public MappingResponse createNewUser(@RequestBody CreateUserRequest request) throws Exception {
         userService.createNewUser(request);
         MappingResponse response = new MappingResponse();
         response.setResponseMessage("User: " + request.getId() + " successfully created.");
@@ -56,10 +60,10 @@ public class UsersController {
     }
 
     @PutMapping("/users/edit")
-    public MappingResponse editUser(@RequestBody UserEditRequest request) {
+    public MappingResponse editUser(@RequestBody UserEditRequest request) throws Exception {
         userService.editUser(request);
         MappingResponse response = new MappingResponse();
-        response.setResponseMessage("User: " + request.getUserId() + " details successfully edited.");
+        response.setResponseMessage("User: " + request.getId() + " details successfully edited.");
         return response;
     }
 

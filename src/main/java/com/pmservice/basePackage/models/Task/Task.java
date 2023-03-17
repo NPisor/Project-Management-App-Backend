@@ -46,4 +46,7 @@ public class Task {
     @Column
     private Long status;
 
+    @Column
+    private Long clientId;
+
 }

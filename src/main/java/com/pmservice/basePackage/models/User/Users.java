@@ -1,5 +1,7 @@
 package com.pmservice.basePackage.models.User;
 
+import java.util.Date;
+
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import jakarta.persistence.Column;
@@ -30,5 +32,14 @@ public class Users {
 
     @Column
     private Long client;
+
+    @Column
+    private String deviceId;
+
+    @Column
+    private Date createdOn;
+
+    @Column
+    private Date lastModified;
 
 }

@@ -8,7 +8,7 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "roles")
+@Table(name = "user_roles")
 
 public class Role {
 
@@ -21,5 +21,8 @@ public class Role {
 
     @Column
     private Long group;
+
+    @Column
+    private Long clientId;
 
 }
