@@ -4,11 +4,13 @@ import java.util.Collection;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import com.pmservice.basePackage.models.Status.TaskStatus;
 import com.pmservice.basePackage.repos.TaskStatusRepo;
 import com.pmservice.basePackage.services.TaskStatusService;
 
+@Component
 public class TaskStatusImpl implements TaskStatusService{
 
     @Autowired

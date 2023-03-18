@@ -49,4 +49,7 @@ public class Task {
     @Column
     private Long clientId;
 
+    @Column
+    private String taskImageUrl;
+
 }

@@ -4,10 +4,13 @@ import java.util.Collection;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import com.pmservice.basePackage.models.Anchors.Anchors;
 import com.pmservice.basePackage.repos.CloudAnchorsRepo;
 import com.pmservice.basePackage.services.CloudAnchorService;
 
+@Component
 public class CloudAnchorImpl implements CloudAnchorService{
 
     @Autowired

@@ -3,11 +3,13 @@ package com.pmservice.basePackage.impl;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import com.pmservice.basePackage.models.Logins.Logins;
 import com.pmservice.basePackage.repos.LoginRepo;
 import com.pmservice.basePackage.services.LoginService;
 
+@Component
 public class LoginImpl implements LoginService {
 
     @Autowired
