@@ -10,7 +10,7 @@ public interface TaskService {
 
     Optional<Collection<Task>> findAll() throws Exception;
 
-    Optional<Task> findById(Long taskId) throws Exception;
+    String findById(Long taskId) throws Exception;
 
     Optional<Collection<Task>> findAllByAssigneeId(Long assigneeId) throws Exception;
 

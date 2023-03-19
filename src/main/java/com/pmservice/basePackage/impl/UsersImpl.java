@@ -44,17 +44,19 @@ public class UsersImpl implements UserService {
     public void createNewUser(CreateUserRequest request) throws Exception {
         if(usersRepo.findById(request.getId()).isPresent()){
             throw new Exception("User already already exists in database.");
-        }       
-        Users newUser = new Users();
-        newUser.setId(request.getId());
-        newUser.setFName(request.getFirstName());
-        newUser.setLName(request.getLastName());
-        newUser.setClient(request.getClient());
-        newUser.setRole(request.getRole());
-        newUser.setDeviceId(request.getDeviceId());
-        newUser.setCreatedOn(Date.from(Instant.now()));
-        newUser.setLastModified(Date.from(Instant.now()));
-        newUser = usersRepo.save(newUser);
+        } 
+        else{      
+            Users newUser = new Users();
+            newUser.setId(request.getId());
+            newUser.setFName(request.getFirstName());
+            newUser.setLName(request.getLastName());
+            newUser.setClient(request.getClient());
+            newUser.setRole(request.getRole());
+            newUser.setDeviceId(request.getDeviceId());
+            newUser.setCreatedOn(Date.from(Instant.now()));
+            newUser.setLastModified(Date.from(Instant.now()));
+            newUser = usersRepo.save(newUser);
+        }
     }
 
     @Override

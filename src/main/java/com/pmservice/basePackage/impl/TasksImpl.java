@@ -1,14 +1,22 @@
 package com.pmservice.basePackage.impl;
 
+import java.time.Instant;
+import java.time.OffsetDateTime;
+import java.time.ZoneId;
 import java.util.Collection;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.pmservice.basePackage.models.Task.Task;
+import com.pmservice.basePackage.models.User.Users;
 import com.pmservice.basePackage.repos.TaskRepo;
 import com.pmservice.basePackage.repos.TaskStatusRepo;
+import com.pmservice.basePackage.repos.UsersRepo;
 import com.pmservice.basePackage.services.TaskService;
 
 @Component
@@ -18,14 +26,29 @@ public class TasksImpl implements TaskService{
     TaskRepo taskRepo;
     @Autowired
     TaskStatusRepo taskStatusRepo;
+    @Autowired
+    UsersRepo usersRepo;
 
     @Override
-    public Optional<Task> findById(Long taskId) throws Exception {
-        if(taskRepo.findById(taskId).isEmpty()){
-            throw new Exception("No Task found with given ID.");
+    public String findById(Long taskId) throws Exception {
+        Optional<Task> task;
+        task = taskRepo.findById(taskId);
+        if(task.isEmpty()){
+            throw new Exception("No task has been found with ID: " + taskId.toString());
         }
-        return taskRepo.findById(taskId);
-        
+        else{
+            OffsetDateTime created = OffsetDateTime.ofInstant(Instant.ofEpochMilli(task.get().getCreatedTs().getTime()), ZoneId.systemDefault());
+            OffsetDateTime complete = OffsetDateTime.ofInstant(Instant.ofEpochMilli(task.get().getTaskCompleted().getTime()), ZoneId.systemDefault());
+            OffsetDateTime submitted = OffsetDateTime.ofInstant(Instant.ofEpochMilli(task.get().getTaskSubmittedForReview().getTime()), ZoneId.systemDefault());
+            Users assigner = usersRepo.findById(task.get().getAssignerId()).get();
+            ObjectMapper om = new ObjectMapper();  
+            JsonNode jsonNode = om.readTree(om.writeValueAsString(task.get()));
+            ((ObjectNode)jsonNode).put("assignerName", assigner.getFName() + " " + assigner.getLName());
+            ((ObjectNode)jsonNode).put("createdDt", created.toLocalDateTime().toString().replace('T', ' '));
+            ((ObjectNode)jsonNode).put("completedDt", complete.toLocalDateTime().toString().replace('T', ' '));
+            ((ObjectNode)jsonNode).put("submittedDt", submitted.toLocalDateTime().toString().replace('T', ' '));
+            return om.writeValueAsString(jsonNode);
+        }        
     }
 
     @Override

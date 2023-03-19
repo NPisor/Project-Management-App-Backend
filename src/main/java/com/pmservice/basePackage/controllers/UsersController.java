@@ -1,15 +1,18 @@
 package com.pmservice.basePackage.controllers;
 
 import java.util.Collection;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.pmservice.basePackage.models.Responses.MappingResponse;
 import com.pmservice.basePackage.models.User.CreateUserRequest;
 import com.pmservice.basePackage.models.User.UserDeleteRequest;
@@ -17,6 +20,7 @@ import com.pmservice.basePackage.models.User.UserEditRequest;
 import com.pmservice.basePackage.models.User.Users;
 import com.pmservice.basePackage.services.UserService;
 
+@CrossOrigin(origins = "*")
 @RestController
 public class UsersController {
 
@@ -29,8 +33,17 @@ public class UsersController {
     }
 
     @GetMapping("/users/id")
-    public Users getUserById(Long id) throws Exception {
-        return userService.findById(id).get();
+    public String customerSearch(@RequestParam Long id) throws Exception
+    {
+        Optional<Users> user;
+        user = userService.findById(id);
+        if(user.isEmpty()){
+            throw new Exception("No customer found with ID: " + id);
+        }
+        else{
+            ObjectMapper mapper = new ObjectMapper(); 
+            return mapper.writeValueAsString(user.get());
+        }        
     }
 
     @GetMapping("/users/role")

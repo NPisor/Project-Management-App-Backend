@@ -4,12 +4,18 @@ import java.util.Collection;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import com.pmservice.basePackage.models.Task.Task;
 import com.pmservice.basePackage.services.TaskService;
 
 @RestController
+@CrossOrigin(origins = "*")
 public class TasksController {
 
     @Autowired
@@ -19,9 +25,10 @@ public class TasksController {
     public Optional<Collection<Task>> getAllTasks() throws Exception {
         return taskService.findAll();
     }
-
-    @GetMapping("/task/id")
-    public Optional<Task> getTaskById(Long id) throws Exception {
+    
+    @RequestMapping(value = "/tasksearch", method = RequestMethod.GET, produces="application/json")
+    @ResponseBody
+    public String getTaskById(@RequestParam Long id) throws Exception {
         return taskService.findById(id);
     }
 
