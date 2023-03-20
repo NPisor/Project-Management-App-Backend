@@ -3,6 +3,7 @@ package com.pmservice.basePackage.controllers;
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,18 +18,19 @@ import com.pmservice.basePackage.models.Responses.MappingResponse;
 import com.pmservice.basePackage.services.ClientsService;
 
 @RestController
+@CrossOrigin(origins = "*")
 public class ClientsController {
 
     @Autowired
     ClientsService clientsService;
 
     @GetMapping("/clients")
-    public Collection<Client> getAllClients() {
+    public Collection<Client> getAllClients() throws Exception {
         return clientsService.findAllClients();
     }
 
     @GetMapping("/client/id")
-    public Client getClientById(Long id) {
+    public Client getClientById(Long id) throws Exception {
         return clientsService.findClientById(id);
     }
 
@@ -49,7 +51,7 @@ public class ClientsController {
     }
 
     @PutMapping("/client/edit")
-    public MappingResponse editClient(Long clientID, @RequestBody String newClientName) {
+    public MappingResponse editClient(Long clientID, @RequestBody String newClientName) throws Exception {
         clientsService.editClient(clientID, newClientName);
         MappingResponse response = new MappingResponse();
         response.setResponseMessage("Client: " + clientID + " has been renamed to " + newClientName);

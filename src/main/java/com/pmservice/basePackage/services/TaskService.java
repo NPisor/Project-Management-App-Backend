@@ -8,18 +8,18 @@ import com.pmservice.basePackage.models.Task.Task;
 
 public interface TaskService {
 
-    Optional<Collection<Task>> findAll() throws Exception;
+    Collection<Task> findAll() throws Exception;
 
     String findById(Long taskId) throws Exception;
 
-    Optional<Collection<Task>> findAllByAssigneeId(Long assigneeId) throws Exception;
+    Collection<Task> findAllByAssigneeId(Long assigneeId) throws Exception;
 
-    Optional<Collection<Task>> findAllByAssignerId(Long assignerId) throws Exception;
+    Collection<Task> findAllByAssignerId(Long assignerId) throws Exception;
 
-    Optional<Collection<Task>> findAllByClientIdAndStatus(Long clientId, Long Status) throws Exception;
+    Collection<Task> findAllByClientIdAndStatus(Long clientId, Long Status) throws Exception;
 
-    Optional<Collection<Task>> findAllByClientId(Long clientId) throws Exception;
+    Collection<Task> findAllByClientId(Long clientId) throws Exception;
 
-    Optional<Collection<Task>> findAllByPriority(Long priority) throws Exception;
+    Collection<Task> findAllByPriority(Long priority) throws Exception;
     
 }

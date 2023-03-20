@@ -12,10 +12,12 @@ E:\IDEA Projects\pm-app-service\src\main\java\com\pmservice\basePackage\models\U
 E:\IDEA Projects\pm-app-service\src\main\java\com\pmservice\basePackage\repos\UsersRepo.java
 E:\IDEA Projects\pm-app-service\src\main\java\com\pmservice\basePackage\models\Role\Role.java
 E:\IDEA Projects\pm-app-service\src\main\java\com\pmservice\basePackage\repos\TaskRepo.java
+E:\IDEA Projects\pm-app-service\src\main\java\com\pmservice\basePackage\services\RolesService.java
 E:\IDEA Projects\pm-app-service\src\main\java\com\pmservice\basePackage\services\LoginService.java
 E:\IDEA Projects\pm-app-service\src\main\java\com\pmservice\basePackage\impl\UsersImpl.java
 E:\IDEA Projects\pm-app-service\src\main\java\com\pmservice\basePackage\models\Responses\MappingResponse.java
 E:\IDEA Projects\pm-app-service\src\main\java\com\pmservice\basePackage\controllers\ClientsController.java
+E:\IDEA Projects\pm-app-service\src\main\java\com\pmservice\basePackage\impl\RolesImpl.java
 E:\IDEA Projects\pm-app-service\src\main\java\com\pmservice\basePackage\models\Logins\Logins.java
 E:\IDEA Projects\pm-app-service\src\main\java\com\pmservice\basePackage\models\Client\DeleteClientRequest.java
 E:\IDEA Projects\pm-app-service\src\main\java\com\pmservice\basePackage\repos\LoginRepo.java
@@ -25,6 +27,7 @@ E:\IDEA Projects\pm-app-service\src\main\java\com\pmservice\PMServiceApplication
 E:\IDEA Projects\pm-app-service\src\main\java\com\pmservice\basePackage\controllers\CloudAnchorController.java
 E:\IDEA Projects\pm-app-service\src\main\java\com\pmservice\basePackage\controllers\TaskStatusController.java
 E:\IDEA Projects\pm-app-service\src\main\java\com\pmservice\basePackage\impl\LoginImpl.java
+E:\IDEA Projects\pm-app-service\src\main\java\com\pmservice\basePackage\controllers\RolesController.java
 E:\IDEA Projects\pm-app-service\src\main\java\com\pmservice\basePackage\controllers\TasksController.java
 E:\IDEA Projects\pm-app-service\src\main\java\com\pmservice\basePackage\impl\TasksImpl.java
 E:\IDEA Projects\pm-app-service\src\main\java\com\pmservice\basePackage\models\User\Users.java

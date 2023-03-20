@@ -17,19 +17,19 @@ public class CloudAnchorImpl implements CloudAnchorService{
     CloudAnchorsRepo cloudAnchorsRepo;
 
     @Override
-    public Optional<Collection<Anchors>> findAll() throws Exception {
+    public Collection<Anchors> findAll() throws Exception {
         if(cloudAnchorsRepo.findAll().isEmpty()){
             throw new Exception("No cloud anchors have been found.");
         }
-        return cloudAnchorsRepo.findAll();
+        return cloudAnchorsRepo.findAll().get();
     }
 
     @Override
-    public Optional<Anchors> findById(Long anchorId) throws Exception {
+    public Anchors findById(Long anchorId) throws Exception {
         if(cloudAnchorsRepo.findById(anchorId).isEmpty()){
             throw new Exception("No cloud anchor with ID: " + anchorId + " could be found.");
         }
-        return cloudAnchorsRepo.findById(anchorId);
+        return cloudAnchorsRepo.findById(anchorId).get();
     }
     
 }

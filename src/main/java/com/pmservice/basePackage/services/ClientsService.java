@@ -9,14 +9,14 @@ import com.pmservice.basePackage.models.Client.DeleteClientRequest;
 
 public interface ClientsService {
 
-    Client findClientById(Long clientId);
+    Client findClientById(Long clientId) throws Exception;
 
-    Collection<Client> findAllClients();
+    Collection<Client> findAllClients() throws Exception;
 
     Client saveNewClient(CreateClientRequest request);
 
-    Client deleteClient(DeleteClientRequest request);
+    Client deleteClient(DeleteClientRequest request) throws Exception;
 
-    Client editClient(Long clientId, String newClientName);
+    Client editClient(Long clientId, String newClientName) throws Exception;
     
 }

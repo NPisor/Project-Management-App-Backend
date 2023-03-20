@@ -16,19 +16,19 @@ public class LoginImpl implements LoginService {
     LoginRepo loginRepo;
 
     @Override
-    public Optional<Logins> findById(Long id) throws Exception {
+    public Logins findById(Long id) throws Exception {
         if(loginRepo.findById(id).isEmpty()){
             throw new Exception("No user found with given ID.");
         }
-        return loginRepo.findById(id);
+        return loginRepo.findById(id).get();
     }
 
     @Override
-    public Optional<Logins> findByUsername(String username) throws Exception {
+    public Logins findByUsername(String username) throws Exception {
         if(loginRepo.findByUsername(username).isEmpty()){
             throw new Exception("No user found with given Username: " + username);
         }
-        return loginRepo.findByUsername(username);
+        return loginRepo.findByUsername(username).get();
     }
     
 }

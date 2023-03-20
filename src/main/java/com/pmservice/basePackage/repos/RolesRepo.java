@@ -1,15 +1,20 @@
 package com.pmservice.basePackage.repos;
 
+import java.util.Collection;
+import java.util.Optional;
+
 import org.springframework.data.repository.Repository;
 
 import com.pmservice.basePackage.models.Role.Role;
 
 public interface RolesRepo extends Repository<Role, Long> {
 
-    Role findAll();
+    Optional<Collection<Role>> findAll();
 
-    Role findById(Long roleId);
+    Optional<Role> findByLabelAndClientId(String label, Long clientId);
 
-    Role findByClientId(Long clientId);
+    Optional<Role> findById(Long roleId);
+
+    Optional<Collection<Role>> findAllByClientId(Long clientId);
 
 }

@@ -17,19 +17,19 @@ public class TaskStatusImpl implements TaskStatusService{
     TaskStatusRepo taskStatusRepo;
 
     @Override
-    public Optional<TaskStatus> findById(Long id) throws Exception {
+    public TaskStatus findById(Long id) throws Exception {
         if(taskStatusRepo.findById(id).isEmpty()){
             throw new Exception("No Task Status found with given ID");
         }
-        return taskStatusRepo.findById(id);
+        return taskStatusRepo.findById(id).get();
         
     }
 
     @Override
-    public Optional<Collection<TaskStatus>> findAll() throws Exception {
+    public Collection<TaskStatus> findAll() throws Exception {
         if(taskStatusRepo.findAll().isEmpty()){
             throw new Exception("No Task Status entries have been found.");
         }
-        return taskStatusRepo.findAll();
+        return taskStatusRepo.findAll().get();
     }    
 }

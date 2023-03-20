@@ -12,6 +12,8 @@ import com.pmservice.basePackage.models.User.CreateUserRequest;
 import com.pmservice.basePackage.models.User.UserDeleteRequest;
 import com.pmservice.basePackage.models.User.UserEditRequest;
 import com.pmservice.basePackage.models.User.Users;
+import com.pmservice.basePackage.repos.ClientsRepo;
+import com.pmservice.basePackage.repos.RolesRepo;
 import com.pmservice.basePackage.repos.UsersRepo;
 import com.pmservice.basePackage.services.UserService;
 
@@ -21,6 +23,12 @@ public class UsersImpl implements UserService {
 
     @Autowired
     private UsersRepo usersRepo;
+
+    @Autowired
+    private RolesRepo rolesRepo;
+
+    @Autowired
+    private ClientsRepo clientsRepo;
 
     @Override
     public Collection<Users> getAllUsers() {
@@ -41,22 +49,16 @@ public class UsersImpl implements UserService {
     }
 
     @Override
-    public void createNewUser(CreateUserRequest request) throws Exception {
-        if(usersRepo.findById(request.getId()).isPresent()){
-            throw new Exception("User already already exists in database.");
-        } 
-        else{      
+    public void createNewUser(CreateUserRequest request) throws Exception {    
             Users newUser = new Users();
-            newUser.setId(request.getId());
             newUser.setFName(request.getFirstName());
             newUser.setLName(request.getLastName());
-            newUser.setClient(request.getClient());
-            newUser.setRole(request.getRole());
+            newUser.setClient(clientsRepo.findByClientName(request.getClient()).get().getId());
+            newUser.setRole(rolesRepo.findByLabelAndClientId(request.getRole(), clientsRepo.findByClientName(request.getClient()).get().getId()).get().getId());
             newUser.setDeviceId(request.getDeviceId());
             newUser.setCreatedOn(Date.from(Instant.now()));
             newUser.setLastModified(Date.from(Instant.now()));
             newUser = usersRepo.save(newUser);
-        }
     }
 
     @Override

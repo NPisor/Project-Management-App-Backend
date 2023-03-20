@@ -13,9 +13,11 @@ com\pmservice\basePackage\impl\LoginImpl.class
 com\pmservice\basePackage\impl\CloudAnchorImpl.class
 com\pmservice\basePackage\models\Client\Client.class
 com\pmservice\basePackage\impl\UsersImpl.class
+com\pmservice\basePackage\impl\RolesImpl.class
 com\pmservice\basePackage\models\Usages\Usages.class
 com\pmservice\basePackage\services\TaskService.class
 com\pmservice\basePackage\services\LoginService.class
+com\pmservice\basePackage\services\RolesService.class
 com\pmservice\basePackage\models\Client\CreateClientRequest.class
 com\pmservice\basePackage\controllers\UsersController.class
 com\pmservice\basePackage\models\Status\TaskStatus.class
@@ -29,6 +31,7 @@ com\pmservice\basePackage\models\Anchors\Anchors.class
 com\pmservice\basePackage\services\CloudAnchorService.class
 com\pmservice\basePackage\repos\RolesRepo.class
 com\pmservice\basePackage\services\TaskStatusService.class
+com\pmservice\basePackage\controllers\RolesController.class
 com\pmservice\basePackage\controllers\TaskStatusController.class
 com\pmservice\basePackage\impl\TaskStatusImpl.class
 com\pmservice\basePackage\models\Responses\MappingResponse.class

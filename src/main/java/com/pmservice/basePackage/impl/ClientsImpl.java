@@ -18,13 +18,19 @@ public class ClientsImpl implements ClientsService{
     ClientsRepo clientsRepo;
 
     @Override
-    public Client findClientById(Long clientId) {
-        return clientsRepo.findById(clientId);
+    public Client findClientById(Long clientId) throws Exception {
+        if(clientsRepo.findById(clientId).isEmpty()){
+            throw new Exception("No client found with ID: " + clientId.toString());
+        }
+        return clientsRepo.findById(clientId).get();
     }
 
     @Override
-    public Collection<Client> findAllClients() {
-        return clientsRepo.findAll();
+    public Collection<Client> findAllClients() throws Exception {
+        if(clientsRepo.findAll().isEmpty()){
+            throw new Exception("No clients found.");
+        }
+        return clientsRepo.findAll().get();
     }
 
     @Override
@@ -36,16 +42,19 @@ public class ClientsImpl implements ClientsService{
     }
 
     @Override
-    public Client deleteClient(DeleteClientRequest request) {
-        Client client = new Client();
-        client = clientsRepo.findById(request.getId());
-        return clientsRepo.delete(client);
+    public Client deleteClient(DeleteClientRequest request) throws Exception {
+        if(clientsRepo.findById(request.getId()).isEmpty()){
+            throw new Exception("No client found with ID: " + request.getId());
+        }
+        return clientsRepo.delete(clientsRepo.findById(request.getId()).get());
     }
 
     @Override
-    public Client editClient(Long clientId, String newClientName) {
-        Client client = new Client();
-        client = clientsRepo.findById(clientId);
+    public Client editClient(Long clientId, String newClientName) throws Exception {
+        if(clientsRepo.findById(clientId).isEmpty()){
+            throw new Exception("No client found with ID: " + clientId.toString());
+        }
+        Client client = clientsRepo.findById(clientId).get();
         client.setClientName(newClientName);
         return clientsRepo.save(client);
     }

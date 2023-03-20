@@ -60,7 +60,7 @@ public class UsersController {
     public MappingResponse createNewUser(@RequestBody CreateUserRequest request) throws Exception {
         userService.createNewUser(request);
         MappingResponse response = new MappingResponse();
-        response.setResponseMessage("User: " + request.getId() + " successfully created.");
+        response.setResponseMessage("User: " + request.getFirstName() + " " + request.getLastName() + " successfully created.");
         return response;
     }
 
