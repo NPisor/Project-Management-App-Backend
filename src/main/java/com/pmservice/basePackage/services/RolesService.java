@@ -1,6 +1,8 @@
 package com.pmservice.basePackage.services;
 
 import java.util.Collection;
+
+import com.pmservice.basePackage.models.Role.CreateRoleRequest;
 import com.pmservice.basePackage.models.Role.Role;
 
 
@@ -11,5 +13,9 @@ public interface RolesService {
     Role findById(Long roleId) throws Exception;
 
     Collection<Role> findAllByClientId(Long clientId) throws Exception;
+
+    Role createNewRole(CreateRoleRequest request);
+
+    void delete(Long clientId, String label) throws Exception;
     
 }

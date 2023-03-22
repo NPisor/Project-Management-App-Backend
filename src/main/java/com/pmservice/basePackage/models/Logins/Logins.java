@@ -28,7 +28,10 @@ public class Logins {
     private String password;
 
     @Column
-    private Long failedAttempts;
+    private Long failedAttemptsLogin;
+
+    @Column
+    private Long failedAttemptsPwdChange;
 
     @Column
     private Timestamp lastLoginAttempt;

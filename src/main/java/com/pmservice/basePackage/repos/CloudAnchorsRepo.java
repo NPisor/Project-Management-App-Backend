@@ -13,5 +13,11 @@ public interface CloudAnchorsRepo extends Repository<Anchors, Long>{
     Optional<Collection<Anchors>> findAll() throws Exception;
 
     Optional<Anchors> findById(Long anchorId) throws Exception;
+
+    Optional<Collection<Anchors>> findAllByStatusAndClientId(Long statusId, Long clientId) throws Exception;
+
+    Anchors save(Anchors anchor);
+
+    Optional<Anchors> delete(Anchors anchor);
     
 }

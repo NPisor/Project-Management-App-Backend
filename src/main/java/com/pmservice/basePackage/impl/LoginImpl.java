@@ -1,13 +1,5 @@
 package com.pmservice.basePackage.impl;
-
-import java.sql.Time;
-import java.sql.Timestamp;
 import java.time.Duration;
-import java.time.temporal.TemporalUnit;
-import java.util.Date;
-import java.util.concurrent.TimeUnit;
-
-import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
@@ -60,23 +52,40 @@ public class LoginImpl implements LoginService, CustomDelegatingPwdEncoder {
 
     @Override
     public void editPassword(String username, ChangePasswordRequest request) throws Exception {
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(10);
         loginRepo.findByUsername(username).ifPresentOrElse(user -> {
-            if(user.getFailedAttempts() > 3){
+            if(user.getFailedAttemptsLogin() > 3){
                 String timeUntilNextAttempt = user.getLastLoginAttempt().toInstant().plus(Duration.ofMinutes(5)).toString();
                 try {
                     throw new Exception("There have been 3 failed attempts to login.  You will have to wait until " + timeUntilNextAttempt);
                 } catch (Exception e) {
-                    // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
             }
             else if(user.getLastCredsChange().toInstant().isBefore(user.getLastCredsChange().toInstant().plus(Duration.ofHours(24)))){
+                try {
+                    throw new Exception("It has not been 24 hours since the last credentials change. Please try again later.");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
+            else if(user.getFailedAttemptsPwdChange()<=3){
+                if(!user.getPassword().equals(encoder.encode(request.getOldPassword())))
+                    try {
+                        user.setFailedAttemptsPwdChange(user.getFailedAttemptsPwdChange() + 1);
+                        throw new Exception("Old password is incorrect. Please try to enter again before changing. You have " + Long.valueOf(3-user.getFailedAttemptsPwdChange()).toString() + " attempts left.");
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+                else{
+                    user.setFailedAttemptsPwdChange(0L);
+                    user.setPassword(encoder.encode(request.getNewPassword()));
+                }
         }, () -> {
             try {
                 throw new Exception("No user found with username: " + username);
             } catch (Exception e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
         });

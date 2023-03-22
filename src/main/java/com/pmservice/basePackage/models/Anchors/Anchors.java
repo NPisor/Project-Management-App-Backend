@@ -28,4 +28,10 @@ public class Anchors {
     @Column
     private Float altitude;
 
+    @Column
+    private Long status;
+
+    @Column
+    private Long clientId;
+
 }

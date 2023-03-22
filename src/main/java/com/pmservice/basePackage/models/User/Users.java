@@ -45,4 +45,13 @@ public class Users {
     @Column
     private Date lastModified;
 
+    @Column
+    private Long tasksAssigned;
+
+    @Column
+    private Long tasksCompleted;
+
+    @Column
+    private Long tasksInReview;
+
 }

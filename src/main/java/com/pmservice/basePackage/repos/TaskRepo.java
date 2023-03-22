@@ -24,4 +24,8 @@ public interface TaskRepo extends Repository<Task, Long> {
 
     Optional<Collection<Task>> findAllByPriority(Long priority);
 
+    Task save(Task task);
+
+    Optional<Task> delete(Task task) throws Exception;
+
 }

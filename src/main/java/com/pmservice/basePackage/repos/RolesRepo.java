@@ -17,4 +17,8 @@ public interface RolesRepo extends Repository<Role, Long> {
 
     Optional<Collection<Role>> findAllByClientId(Long clientId);
 
+    Role save(Role role);
+
+    Optional<Role> delete(Role role) throws Exception;
+
 }
