@@ -1,5 +1,7 @@
 package com.pmservice.basePackage.models.Logins;
 
+import java.sql.Timestamp;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -24,6 +26,15 @@ public class Logins {
 
     @Column
     private String password;
+
+    @Column
+    private Long failedAttempts;
+
+    @Column
+    private Timestamp lastLoginAttempt;
+
+    @Column
+    private Timestamp lastCredsChange;
 
 }
 
