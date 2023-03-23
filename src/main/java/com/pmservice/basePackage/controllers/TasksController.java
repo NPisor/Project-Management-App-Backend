@@ -56,4 +56,9 @@ public class TasksController {
         return taskService.findAllByClientIdAndStatus(id, status);
     }
 
+    @RequestMapping(value = "/task/fillTaskCompletion", method = RequestMethod.GET, produces="application/json")
+    public String fillTaskCompletion(@RequestParam Long clientId) throws Exception {
+        return taskService.fillTaskCompletionStatus(clientId);
+    }
+
 }

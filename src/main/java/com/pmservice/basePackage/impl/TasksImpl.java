@@ -6,12 +6,14 @@ import java.time.ZoneId;
 import java.util.Collection;
 import java.util.Optional;
 
+import org.hibernate.mapping.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.google.gson.JsonObject;
 import com.pmservice.basePackage.models.Task.Task;
 import com.pmservice.basePackage.models.User.Users;
 import com.pmservice.basePackage.repos.TaskRepo;
@@ -92,11 +94,32 @@ public class TasksImpl implements TaskService{
     }
 
     @Override
-    public Collection<Task> findAll() throws Exception {
+    public Collection<Task> findAll() throws Exception{
         if(taskRepo.findAll().isEmpty()){
             throw new Exception("No Tasks found.");
         }
         return taskRepo.findAll().get();
+    }
+
+    @Override
+    public Long count(){
+        return taskRepo.count();
+    }
+
+    @Override
+    public Long countByStatus(Long status){
+        return taskRepo.countByStatus(status);
+    }
+
+    @Override
+    public String fillTaskCompletionStatus(Long clientId) throws Exception {
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty("total", taskRepo.findAllByClientId(clientId).get().size());
+        jsonObject.addProperty("open", taskRepo.findAllByClientIdAndStatus(clientId, 0L).get().size());
+        jsonObject.addProperty("completed", taskRepo.findAllByClientIdAndStatus(clientId, 2L).get().size());
+        jsonObject.addProperty("pending", taskRepo.findAllByClientIdAndStatus(clientId, 1L).get().size());
+
+        return jsonObject.toString();
     }
     
 }

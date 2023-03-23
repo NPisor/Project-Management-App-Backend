@@ -20,5 +20,11 @@ public interface TaskService {
     Collection<Task> findAllByClientId(Long clientId) throws Exception;
 
     Collection<Task> findAllByPriority(Long priority) throws Exception;
+
+    Long count();
+
+    Long countByStatus(Long status);
+
+    String fillTaskCompletionStatus(Long clientId) throws Exception;
     
 }

@@ -6,6 +6,7 @@ E:\IDEA Projects\pm-app-service\src\main\java\com\pmservice\basePackage\impl\Tas
 E:\IDEA Projects\pm-app-service\src\main\java\com\pmservice\basePackage\models\Status\TaskStatus.java
 E:\IDEA Projects\pm-app-service\src\main\java\com\pmservice\basePackage\models\User\UserDeleteRequest.java
 E:\IDEA Projects\pm-app-service\src\main\java\com\pmservice\basePackage\services\TaskService.java
+E:\IDEA Projects\pm-app-service\src\main\java\com\pmservice\basePackage\Security\CustomDelegatingPwdEncoder.java
 E:\IDEA Projects\pm-app-service\src\main\java\com\pmservice\basePackage\impl\ClientsImpl.java
 E:\IDEA Projects\pm-app-service\src\main\java\com\pmservice\basePackage\services\CloudAnchorService.java
 E:\IDEA Projects\pm-app-service\src\main\java\com\pmservice\basePackage\models\Usages\Usages.java
@@ -13,6 +14,7 @@ E:\IDEA Projects\pm-app-service\src\main\java\com\pmservice\basePackage\repos\Us
 E:\IDEA Projects\pm-app-service\src\main\java\com\pmservice\basePackage\models\Role\Role.java
 E:\IDEA Projects\pm-app-service\src\main\java\com\pmservice\basePackage\repos\TaskRepo.java
 E:\IDEA Projects\pm-app-service\src\main\java\com\pmservice\basePackage\services\RolesService.java
+E:\IDEA Projects\pm-app-service\src\main\java\com\pmservice\basePackage\models\Logins\ChangePasswordRequest.java
 E:\IDEA Projects\pm-app-service\src\main\java\com\pmservice\basePackage\services\LoginService.java
 E:\IDEA Projects\pm-app-service\src\main\java\com\pmservice\basePackage\impl\UsersImpl.java
 E:\IDEA Projects\pm-app-service\src\main\java\com\pmservice\basePackage\models\Responses\MappingResponse.java
@@ -27,9 +29,11 @@ E:\IDEA Projects\pm-app-service\src\main\java\com\pmservice\PMServiceApplication
 E:\IDEA Projects\pm-app-service\src\main\java\com\pmservice\basePackage\controllers\CloudAnchorController.java
 E:\IDEA Projects\pm-app-service\src\main\java\com\pmservice\basePackage\controllers\TaskStatusController.java
 E:\IDEA Projects\pm-app-service\src\main\java\com\pmservice\basePackage\impl\LoginImpl.java
+E:\IDEA Projects\pm-app-service\src\main\java\com\pmservice\basePackage\models\Anchors\CreateAnchorRequest.java
 E:\IDEA Projects\pm-app-service\src\main\java\com\pmservice\basePackage\controllers\RolesController.java
 E:\IDEA Projects\pm-app-service\src\main\java\com\pmservice\basePackage\controllers\TasksController.java
 E:\IDEA Projects\pm-app-service\src\main\java\com\pmservice\basePackage\impl\TasksImpl.java
+E:\IDEA Projects\pm-app-service\src\main\java\com\pmservice\basePackage\models\Role\CreateRoleRequest.java
 E:\IDEA Projects\pm-app-service\src\main\java\com\pmservice\basePackage\models\User\Users.java
 E:\IDEA Projects\pm-app-service\src\main\java\com\pmservice\basePackage\repos\ClientsRepo.java
 E:\IDEA Projects\pm-app-service\src\main\java\com\pmservice\basePackage\controllers\UsersController.java
