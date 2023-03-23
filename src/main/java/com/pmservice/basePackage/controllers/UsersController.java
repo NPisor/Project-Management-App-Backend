@@ -1,7 +1,6 @@
 package com.pmservice.basePackage.controllers;
 
 import java.util.Collection;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -33,26 +32,21 @@ public class UsersController {
     }
 
     @GetMapping("/users/id")
-    public String customerSearch(@RequestParam Long id) throws Exception
+    public String customerSearch(@RequestParam Long id, @RequestParam Long clientId) throws Exception
     {
-        Optional<Users> user;
-        user = userService.findById(id);
-        if(user.isEmpty()){
-            throw new Exception("No customer found with ID: " + id);
-        }
-        else{
-            ObjectMapper mapper = new ObjectMapper(); 
-            return mapper.writeValueAsString(user.get());
-        }        
+        Users user;
+        user = userService.findByClientIdAndUserId(clientId, id);
+        ObjectMapper mapper = new ObjectMapper(); 
+        return mapper.writeValueAsString(user);  
     }
 
     @GetMapping("/users/role")
-    public Collection<Users> getUsersByRole(Long roleId) {
-        return userService.findUsersByRole(roleId);
+    public Collection<Users> getUsersByRoleAndClient(@RequestParam Long roleId, @RequestParam Long clientId) throws Exception {
+        return userService.findUsersByRoleAndClient(roleId, clientId);
     }
 
     @GetMapping("/users/client")
-    public Collection<Users> getUsersByClient(Long clientId) {
+    public Collection<Users> getUsersByClient(@RequestParam Long clientId) throws Exception {
         return userService.findUsersByClient(clientId);
     }
 

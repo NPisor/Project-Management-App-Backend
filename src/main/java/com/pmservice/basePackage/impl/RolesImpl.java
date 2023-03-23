@@ -25,11 +25,11 @@ public class RolesImpl implements RolesService {
     }
 
     @Override
-    public Role findById(Long roleId) throws Exception {
-        if(rolesRepo.findById(roleId).isEmpty()){
+    public Role findByIdAndClientId(Long roleId, Long clientId) throws Exception {
+        if(rolesRepo.findByIdAndClientId(roleId, clientId).isEmpty()){
             throw new Exception("No role has been found with ID: " + roleId.toString());
         }
-        return rolesRepo.findById(roleId).get();
+        return rolesRepo.findByIdAndClientId(roleId, clientId).get();
     }
 
     @Override

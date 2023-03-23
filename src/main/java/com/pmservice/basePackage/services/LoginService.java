@@ -9,6 +9,8 @@ public interface LoginService {
 
     Logins findByUsername(String username) throws Exception;
 
+    Logins findByClientAndUsername(Long clientId, String username) throws Exception;
+
     Boolean checkPassword(String username, String password) throws Exception;
 
     void editPassword(String username, ChangePasswordRequest request) throws Exception;

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.pmservice.basePackage.models.Client.Client;
@@ -30,7 +31,7 @@ public class ClientsController {
     }
 
     @GetMapping("/client/id")
-    public Client getClientById(Long id) throws Exception {
+    public Client getClientById(@RequestParam Long id) throws Exception {
         return clientsService.findClientById(id);
     }
 
@@ -51,7 +52,7 @@ public class ClientsController {
     }
 
     @PutMapping("/client/edit")
-    public MappingResponse editClient(Long clientID, @RequestBody String newClientName) throws Exception {
+    public MappingResponse editClient(@RequestParam Long clientID, @RequestBody String newClientName) throws Exception {
         clientsService.editClient(clientID, newClientName);
         MappingResponse response = new MappingResponse();
         response.setResponseMessage("Client: " + clientID + " has been renamed to " + newClientName);

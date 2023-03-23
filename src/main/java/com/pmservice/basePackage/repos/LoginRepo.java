@@ -12,6 +12,8 @@ public interface LoginRepo extends Repository<Logins, Long>{
 
     Optional<Logins> findByUsername(String username) throws Exception;
 
+    Optional<Logins> findByClientAndUsername(Long clientId, String username) throws Exception;
+
     Logins save(Logins login);
     
 }

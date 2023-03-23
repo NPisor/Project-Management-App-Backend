@@ -1,7 +1,6 @@
 package com.pmservice.basePackage.services;
 
 import java.util.Collection;
-import java.util.Optional;
 
 import com.pmservice.basePackage.models.User.CreateUserRequest;
 import com.pmservice.basePackage.models.User.UserDeleteRequest;
@@ -12,11 +11,13 @@ public interface UserService{
 
     public Collection<Users> getAllUsers();
 
-    public Optional<Users> findById(Long id) throws Exception;
+    public Users findById(Long id) throws Exception;
 
-    public Collection<Users> findUsersByRole(Long roleId);
+    public Collection<Users> findUsersByRoleAndClient(Long roleId, Long clientId) throws Exception;
 
-    public Collection<Users> findUsersByClient(Long clientId);
+    public Collection<Users> findUsersByClient(Long clientId) throws Exception;
+
+    public Users findByClientIdAndUserId(Long clientId, Long userId) throws Exception;
 
     public void createNewUser(CreateUserRequest request) throws Exception;
 

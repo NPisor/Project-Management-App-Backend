@@ -13,9 +13,11 @@ public interface UsersRepo extends Repository<Users, Long>{
 
     Optional<Users> findById(Long userId);
 
-    Collection<Users> findAllByRole(Long roleId);
+    Optional<Users> findByClientAndId(Long clientId, Long userId) throws Exception;
 
-    Collection<Users> findAllByClient(Long clientId);
+    Optional<Collection<Users>> findAllByRoleAndClient(Long roleId, Long clientId) throws Exception;
+
+    Optional<Collection<Users>> findAllByClient(Long clientId) throws Exception;
 
     Users save(Users user);
 

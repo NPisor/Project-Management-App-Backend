@@ -1,3 +1,4 @@
+com\pmservice\basePackage\models\Jobs\CreateJobRequest.class
 com\pmservice\basePackage\Security\CustomDelegatingPwdEncoder.class
 com\pmservice\basePackage\impl\TasksImpl.class
 com\pmservice\basePackage\controllers\LoginController.class
@@ -15,6 +16,8 @@ com\pmservice\basePackage\models\Status\TaskStatus.class
 com\pmservice\basePackage\models\User\Users.class
 com\pmservice\basePackage\services\UserService.class
 com\pmservice\basePackage\models\Logins\Logins.class
+com\pmservice\basePackage\models\Jobs\Jobs.class
+com\pmservice\basePackage\repos\JobsRepo.class
 com\pmservice\basePackage\controllers\RolesController.class
 com\pmservice\basePackage\models\Responses\MappingResponse.class
 com\pmservice\basePackage\models\User\UserDeleteRequest.class
@@ -29,6 +32,7 @@ com\pmservice\basePackage\impl\CloudAnchorImpl.class
 com\pmservice\basePackage\models\Client\Client.class
 com\pmservice\basePackage\impl\UsersImpl.class
 com\pmservice\basePackage\impl\RolesImpl.class
+com\pmservice\basePackage\controllers\JobsController.class
 com\pmservice\basePackage\services\LoginService.class
 com\pmservice\basePackage\controllers\ClientsController.class
 com\pmservice\basePackage\repos\TaskRepo.class
@@ -42,6 +46,8 @@ com\pmservice\basePackage\controllers\TaskStatusController.class
 com\pmservice\basePackage\impl\TaskStatusImpl.class
 com\pmservice\basePackage\repos\CloudAnchorsRepo.class
 com\pmservice\basePackage\services\ClientsService.class
+com\pmservice\basePackage\services\JobService.class
+com\pmservice\basePackage\impl\JobsImpl.class
 com\pmservice\PMServiceApplication.class
 com\pmservice\basePackage\controllers\CloudAnchorController.class
 com\pmservice\basePackage\repos\ClientsRepo.class

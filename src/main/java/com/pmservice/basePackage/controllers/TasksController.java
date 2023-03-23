@@ -32,27 +32,27 @@ public class TasksController {
     }
 
     @GetMapping("/task/clientId")
-    public Collection<Task> getTasksByClientId(Long clientId) throws Exception {
+    public Collection<Task> getTasksByClientId(@RequestParam Long clientId) throws Exception {
         return taskService.findAllByClientId(clientId);
     }
 
     @GetMapping("/task/assigneeId")
-    public Collection<Task> getTasksByAssigneeId(Long assigneeId) throws Exception {
+    public Collection<Task> getTasksByAssigneeId(@RequestParam Long assigneeId) throws Exception {
         return taskService.findAllByAssigneeId(assigneeId);
     }
 
     @GetMapping("/task/priority")
-    public Collection<Task> getTasksByPriority(Long priority) throws Exception {
+    public Collection<Task> getTasksByPriority(@RequestParam Long priority) throws Exception {
         return taskService.findAllByPriority(priority);
     }
 
     @GetMapping("/task/assignerId")
-    public Collection<Task> getTaskByAssignerId(Long assignerId) throws Exception {
+    public Collection<Task> getTaskByAssignerId(@RequestParam Long assignerId) throws Exception {
         return taskService.findAllByAssignerId(assignerId);
     }
 
     @GetMapping("/task/clientstatus")
-    public Collection<Task> getTaskByClientIdAndStatus(Long id, Long status) throws Exception {
+    public Collection<Task> getTaskByClientIdAndStatus(@RequestParam Long id, @RequestParam Long status) throws Exception {
         return taskService.findAllByClientIdAndStatus(id, status);
     }
 

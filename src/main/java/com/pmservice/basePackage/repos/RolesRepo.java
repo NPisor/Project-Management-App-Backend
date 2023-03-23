@@ -13,7 +13,7 @@ public interface RolesRepo extends Repository<Role, Long> {
 
     Optional<Role> findByLabelAndClientId(String label, Long clientId);
 
-    Optional<Role> findById(Long roleId);
+    Optional<Role> findByIdAndClientId(Long roleId, Long clientId);
 
     Optional<Collection<Role>> findAllByClientId(Long clientId);
 

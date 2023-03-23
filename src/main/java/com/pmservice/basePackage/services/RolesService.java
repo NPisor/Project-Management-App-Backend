@@ -10,7 +10,7 @@ public interface RolesService {
 
     Collection<Role> findAll() throws Exception;
 
-    Role findById(Long roleId) throws Exception;
+    Role findByIdAndClientId(Long roleId, Long clientId) throws Exception;
 
     Collection<Role> findAllByClientId(Long clientId) throws Exception;
 

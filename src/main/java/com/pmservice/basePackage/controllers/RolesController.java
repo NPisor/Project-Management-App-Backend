@@ -32,8 +32,8 @@ public class RolesController {
         return rolesService.findAllByClientId(id);
     }
 
-    @GetMapping("/role/id")
-    public Role getRoleById(Long id) throws Exception {
-        return rolesService.findById(id);
+    @GetMapping("/role/idClientId")
+    public Role getRoleById(@RequestParam Long id, @RequestParam Long clientId) throws Exception {
+        return rolesService.findByIdAndClientId(id, clientId);
     }
 }

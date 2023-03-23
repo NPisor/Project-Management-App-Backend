@@ -3,7 +3,6 @@ package com.pmservice.basePackage.impl;
 import java.sql.Date;
 import java.time.Instant;
 import java.util.Collection;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -36,16 +35,19 @@ public class UsersImpl implements UserService {
     }
 
     @Override
-    public Optional<Users> findById(Long id) throws Exception {
+    public Users findById(Long id) throws Exception {
         if(usersRepo.findById(id).isEmpty()){
             throw new Exception("No user found with given ID");
         }
-        return usersRepo.findById(id);
+        return usersRepo.findById(id).get();
     }
 
     @Override
-    public Collection<Users> findUsersByRole(Long roleId) {
-        return usersRepo.findAllByRole(roleId);
+    public Collection<Users> findUsersByRoleAndClient(Long roleId, Long clientId) throws Exception {
+        if(usersRepo.findAllByRoleAndClient(roleId, clientId).isEmpty()){
+            throw new Exception("No Users found with Role: " + rolesRepo.findByIdAndClientId(roleId, clientId).get().getLabel() + " for Client: " + clientsRepo.findById(clientId).get().getClientName());            
+        }
+        return usersRepo.findAllByRoleAndClient(roleId, clientId).get();
     }
 
     @Override
@@ -90,8 +92,19 @@ public class UsersImpl implements UserService {
     }
 
     @Override
-    public Collection<Users> findUsersByClient(Long clientId) {
-        return usersRepo.findAllByClient(clientId);
+    public Collection<Users> findUsersByClient(Long clientId) throws Exception {
+        if(usersRepo.findAllByClient(clientId).isEmpty()){
+            throw new Exception("No Users found for Client: " + clientsRepo.findById(clientId).get().getClientName());
+        }
+        return usersRepo.findAllByClient(clientId).get();
+    }
+
+    @Override
+    public Users findByClientIdAndUserId(Long clientId, Long userId) throws Exception {
+        if(usersRepo.findByClientAndId(clientId, userId).isEmpty()){
+            throw new Exception("No User found with ID: " + userId.toString() + " for Client: " + clientsRepo.findById(clientId).get().getClientName());
+        }
+        return usersRepo.findByClientAndId(clientId, userId).get();
     }
     
 }

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 import com.pmservice.basePackage.Security.CustomDelegatingPwdEncoder;
 import com.pmservice.basePackage.models.Logins.ChangePasswordRequest;
 import com.pmservice.basePackage.models.Logins.Logins;
+import com.pmservice.basePackage.repos.ClientsRepo;
 import com.pmservice.basePackage.repos.LoginRepo;
 import com.pmservice.basePackage.services.LoginService;
 
@@ -15,6 +16,9 @@ public class LoginImpl implements LoginService, CustomDelegatingPwdEncoder {
 
     @Autowired
     LoginRepo loginRepo;
+
+    @Autowired
+    ClientsRepo clientsRepo;
 
     @Override
     public Logins findById(Long id) throws Exception {
@@ -89,5 +93,13 @@ public class LoginImpl implements LoginService, CustomDelegatingPwdEncoder {
                 e.printStackTrace();
             }
         });
+    }
+
+    @Override
+    public Logins findByClientAndUsername(Long clientId, String username) throws Exception {
+        if(loginRepo.findByClientAndUsername(clientId, username).isEmpty()){
+            throw new Exception("No user found for Client: " + clientsRepo.findById(clientId).get().getClientName() + " with Username: " + username);
+        }
+        return loginRepo.findByClientAndUsername(clientId, username).get();
     }
 }
