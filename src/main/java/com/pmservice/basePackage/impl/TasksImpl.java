@@ -5,14 +5,13 @@ import java.time.OffsetDateTime;
 import java.time.ZoneId;
 import java.util.Collection;
 import java.util.Optional;
-
-import org.hibernate.mapping.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.pmservice.basePackage.models.Task.Task;
 import com.pmservice.basePackage.models.User.Users;
@@ -113,13 +112,60 @@ public class TasksImpl implements TaskService{
 
     @Override
     public String fillTaskCompletionStatus(Long clientId) throws Exception {
-        JsonObject jsonObject = new JsonObject();
-        jsonObject.addProperty("total", taskRepo.findAllByClientId(clientId).get().size());
-        jsonObject.addProperty("open", taskRepo.findAllByClientIdAndStatus(clientId, 0L).get().size());
-        jsonObject.addProperty("completed", taskRepo.findAllByClientIdAndStatus(clientId, 2L).get().size());
-        jsonObject.addProperty("pending", taskRepo.findAllByClientIdAndStatus(clientId, 1L).get().size());
+        JsonArray jsonArray = new JsonArray();
+        Collection<Task> tasksByClient = taskRepo.findAllByClientId(clientId).get();
+        int numOpenTasks=0;
+        int numCompletedTasks = 0;
+        int numPendingTasks = 0;
+        for(Task task:tasksByClient){
+            OffsetDateTime created = OffsetDateTime.ofInstant(Instant.ofEpochMilli(task.getCreatedTs().getTime()), ZoneId.systemDefault());
+            OffsetDateTime complete = OffsetDateTime.ofInstant(Instant.ofEpochMilli(task.getTaskCompleted().getTime()), ZoneId.systemDefault());
+            OffsetDateTime submitted = OffsetDateTime.ofInstant(Instant.ofEpochMilli(task.getTaskSubmittedForReview().getTime()), ZoneId.systemDefault());
+            switch(Math.toIntExact(task.getStatus())){
+                case(0):
+                    numOpenTasks += 1;
+                    break;
+                case(1):
+                    numPendingTasks += 1;
+                    break;
+                case(2):
+                    numCompletedTasks += 1;
+                    break;
+            }
+            JsonObject taskItem = new JsonObject();
+            taskItem.addProperty("id", task.getId());
+            taskItem.addProperty("message", task.getMessage());
+            taskItem.addProperty("status", task.getStatus());
+            taskItem.addProperty("createdTs", created.toLocalDateTime().toString().replace('T', ' '));
+            taskItem.addProperty("completedTs", complete.toLocalDateTime().toString().replace('T', ' '));
+            taskItem.addProperty("submittedTs", submitted.toLocalDateTime().toString().replace('T', ' '));
+            try {
+                taskItem.addProperty("assignee", usersRepo.findByClientAndId(clientId, task.getAssigneeId()).get().toString());
+            } catch (Exception e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+            try {
+                taskItem.addProperty("assigner", usersRepo.findByClientAndId(clientId, task.getAssignerId()).get().toString());
+            } catch (Exception e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+            taskItem.addProperty("description", task.getTaskDescription());
+            taskItem.addProperty("priority", task.getPriority());
+            taskItem.addProperty("image_url", task.getTaskImageUrl());
 
-        return jsonObject.toString();
+            jsonArray.add(taskItem);
+        };
+        JsonObject taskCount = new JsonObject();
+        taskCount.addProperty("tasksOpen", numOpenTasks);
+        taskCount.addProperty("tasksPending", numPendingTasks);
+        taskCount.addProperty("tasksCompleted", numCompletedTasks);
+        taskCount.addProperty("tasksTotal", numCompletedTasks + numCompletedTasks + numPendingTasks);
+
+        jsonArray.add(taskCount);
+
+        return jsonArray.toString();
     }
     
 }
